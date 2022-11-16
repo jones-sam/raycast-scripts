@@ -13,8 +13,8 @@
 # @raycast.authorURL https://github.com/jones-sam
 
 volume="APFS Volume Extreme SSD"
-if diskutil list external virtual | ack "$volume" ; then
-    if tmutil currentPhase | ack "BackupNotRunning" ; then
+if diskutil list external virtual | ack "$volume" &> /dev/null ; then
+    if tmutil currentPhase | ack "BackupNotRunning" &> /dev/null ; then
         diskutil unmount "Extreme SSD"
     else
         echo "Time Machine backup in progress"; exit 1
