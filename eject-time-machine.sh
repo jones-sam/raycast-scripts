@@ -14,7 +14,11 @@
 
 volume="APFS Volume Extreme SSD"
 if diskutil list external virtual | ack "$volume" ; then
-    diskutil unmount "Extreme SSD"
+    if tmutil currentPhase | ack "BackupNotRunning" ; then
+        diskutil unmount "Extreme SSD"
+    else
+        echo "Time Machine backup in progress"; exit 1
+    fi
 else
     echo "Time Machine drive not mounted" ; exit 1
 fi
